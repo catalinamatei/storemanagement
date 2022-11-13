@@ -6,6 +6,8 @@ import com.storemanagement.app.storemanagement.Repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductsService {
 
@@ -19,6 +21,10 @@ public class ProductsService {
                 .price(productDto.getPrice())
         .build();
         productsRepository.save(product);
+    }
+
+    public List<Products> getAllProducts(){
+       return productsRepository.findAll();
     }
 
 }
