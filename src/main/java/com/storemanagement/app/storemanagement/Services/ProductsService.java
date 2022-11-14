@@ -32,5 +32,9 @@ public class ProductsService {
         return productsRepository.findByName(name);
     }
 
+    public void deleteProductByName(String name){
+         productsRepository.delete(productsRepository.findByName(name));
+    }
+
 
 }
