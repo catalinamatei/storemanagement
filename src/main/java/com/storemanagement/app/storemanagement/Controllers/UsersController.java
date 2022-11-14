@@ -17,7 +17,12 @@ public class UsersController {
     UsersService usersService;
     @GetMapping
     public List<Users> getAllUsers(){
-        return usersService.findAllUsers();
+        return usersService.getAllUsers();
+    }
+
+    @GetMapping(path = "{name}")
+    public Users getUser(@PathVariable String name){
+        return usersService.getUserByName(name);
     }
 
     @PostMapping(path = "/add")

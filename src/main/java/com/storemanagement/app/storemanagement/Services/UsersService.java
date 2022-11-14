@@ -14,8 +14,12 @@ public class UsersService {
     @Autowired
     UsersRepository usersRepository;
 
-    public List<Users> findAllUsers(){
+    public List<Users> getAllUsers(){
         return usersRepository.findAll();
+    }
+
+    public Users getUserByName(String name){
+        return usersRepository.findByName(name);
     }
 
     public void addUser(UsersDTO usersDTO){
