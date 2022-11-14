@@ -27,4 +27,10 @@ public class ProductsService {
        return productsRepository.findAll();
     }
 
+    public Products getProductByName(String name){
+
+        return productsRepository.findByName(name);
+    }
+
+
 }

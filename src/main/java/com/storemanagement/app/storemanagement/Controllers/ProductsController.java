@@ -25,5 +25,11 @@ public class ProductsController {
         return productsService.getAllProducts();
     }
 
+    @GetMapping(path = "/{name}")
+    public Products getProduct(@PathVariable String name){
+
+        return productsService.getProductByName(name);
+    }
+
 
 }
