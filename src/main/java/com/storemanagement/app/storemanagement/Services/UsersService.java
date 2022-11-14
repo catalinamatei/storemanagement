@@ -1,5 +1,6 @@
 package com.storemanagement.app.storemanagement.Services;
 
+import com.storemanagement.app.storemanagement.DTOs.UsersDTO;
 import com.storemanagement.app.storemanagement.Entities.Users;
 import com.storemanagement.app.storemanagement.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,12 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
+    public void addUser(UsersDTO usersDTO){
+        Users user = Users.builder()
+                .title(usersDTO.getTitle())
+                .name(usersDTO.getName())
+                .build();
+        usersRepository.save(user);
+    }
 
 }
