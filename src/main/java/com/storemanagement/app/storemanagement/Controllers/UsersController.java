@@ -1,6 +1,7 @@
 package com.storemanagement.app.storemanagement.Controllers;
 
 
+import com.storemanagement.app.storemanagement.DTOs.ProductsDTO;
 import com.storemanagement.app.storemanagement.DTOs.UsersDTO;
 import com.storemanagement.app.storemanagement.Entities.Users;
 import com.storemanagement.app.storemanagement.Services.UsersService;
@@ -33,5 +34,10 @@ public class UsersController {
     @DeleteMapping(path = "/delete/{name}")
     public void deleteUser(@PathVariable String name){
         usersService.deleteUser(name);
+    }
+
+    @PutMapping(path = "/update/{name}")
+    public void updateUser(@PathVariable String name, @RequestBody UsersDTO userDTO){
+        usersService.updateUser(userDTO, name);
     }
 }

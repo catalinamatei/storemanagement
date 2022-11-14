@@ -1,6 +1,8 @@
 package com.storemanagement.app.storemanagement.Services;
 
+import com.storemanagement.app.storemanagement.DTOs.ProductsDTO;
 import com.storemanagement.app.storemanagement.DTOs.UsersDTO;
+import com.storemanagement.app.storemanagement.Entities.Products;
 import com.storemanagement.app.storemanagement.Entities.Users;
 import com.storemanagement.app.storemanagement.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,15 @@ public class UsersService {
 
     public void deleteUser(String name){
         usersRepository.delete(usersRepository.findByName(name));
+    }
+
+    public void updateUser(UsersDTO user, String name){
+
+        Users updatedUser = usersRepository.findByName(name);
+        updatedUser.setTitle(user.getTitle());
+        updatedUser.setName(user.getName());
+        usersRepository.save(updatedUser);
+
     }
 
 }
