@@ -30,4 +30,8 @@ public class UsersService {
         usersRepository.save(user);
     }
 
+    public void deleteUser(String name){
+        usersRepository.delete(usersRepository.findByName(name));
+    }
+
 }

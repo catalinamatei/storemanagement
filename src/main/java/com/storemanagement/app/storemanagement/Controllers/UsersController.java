@@ -29,4 +29,9 @@ public class UsersController {
     public void addUser(@RequestBody UsersDTO userDTO){
         usersService.addUser(userDTO);
     }
+
+    @DeleteMapping(path = "/delete/{name}")
+    public void deleteUser(@PathVariable String name){
+        usersService.deleteUser(name);
+    }
 }
