@@ -36,5 +36,10 @@ public class ProductsController {
         productsService.deleteProductByName(name);
     }
 
+    @PutMapping(path = "/update/{name}")
+    public void updateProduct(@PathVariable String name, @RequestBody ProductsDTO productDTO){
+        productsService.updateProduct(productDTO, name);
+    }
+
 
 }

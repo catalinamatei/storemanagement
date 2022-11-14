@@ -36,5 +36,14 @@ public class ProductsService {
          productsRepository.delete(productsRepository.findByName(name));
     }
 
+    public void updateProduct(ProductsDTO product, String name){
+
+        Products updatedproduct = productsRepository.findByName(name);
+        updatedproduct.setCategory(product.getCategory());
+        updatedproduct.setName(product.getName());
+        updatedproduct.setPrice(product.getPrice());
+        productsRepository.save(updatedproduct);
+
+    }
 
 }
