@@ -24,17 +24,15 @@ public class ProductsService {
                     .category(productDto.getCategory())
                     .price(productDto.getPrice())
                     .build();
-            if(productDto.getName().equals("null") || productDto.getCategory().equals("null") || productDto.getPrice() == null){
-                logger.log(Level.WARNING, "one or more elements was not assigned with a value and will be null");
+            if(productDto.getName() == null || productDto.getCategory() == null|| productDto.getPrice() == null){
+                logger.log(Level.WARNING, "POST Product: one or more elements was not assigned with a value and will be null");
             }
             productsRepository.save(product);
+            logger.log(Level.INFO, "Product was added");
         }
         catch (Exception e){
             logger.log(Level.INFO, "Product was not added");
         }
-
-        logger.log(Level.INFO, "Product was added");
-
     }
 
     public List<Products> getAllProducts(){
@@ -54,7 +52,16 @@ public class ProductsService {
     }
 
     public void deleteProductByName(String name){
-         productsRepository.delete(productsRepository.findByName(name));
+
+        Products product = productsRepository.findByName(name);
+
+        if(product == null){
+            logger.log(Level.INFO, "Product with name " + name +" wasn't found");
+        }
+        else{
+            productsRepository.delete(product);
+            logger.log(Level.INFO, "Product with name " + name + " was deleted");
+        }
     }
 
     public void updateProduct(ProductsDTO product, String name){
