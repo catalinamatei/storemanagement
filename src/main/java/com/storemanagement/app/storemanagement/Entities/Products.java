@@ -28,5 +28,11 @@ public class Products {
     @Column(name = "price")
     private Long price;
 
+//    @Column(name = "user_action")
+//    private String action;
+//
+//
+//    @Column(name = "user_id")
+//    private Long userId;
 
 }
