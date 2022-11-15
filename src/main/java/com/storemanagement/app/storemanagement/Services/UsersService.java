@@ -1,8 +1,6 @@
 package com.storemanagement.app.storemanagement.Services;
 
-import com.storemanagement.app.storemanagement.DTOs.ProductsDTO;
 import com.storemanagement.app.storemanagement.DTOs.UsersDTO;
-import com.storemanagement.app.storemanagement.Entities.Products;
 import com.storemanagement.app.storemanagement.Entities.Users;
 import com.storemanagement.app.storemanagement.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +15,20 @@ public class UsersService {
 
     @Autowired
     UsersRepository usersRepository;
-    Logger logger = Logger.getLogger(ProductsService.class.getName());
+    Logger logger = Logger.getLogger(UsersService.class.getName());
     public List<Users> getAllUsers(){
         return usersRepository.findAll();
     }
 
     public Users getUserByName(String name){
-        return usersRepository.findByName(name);
+        Users user = usersRepository.findByName(name);
+        if(user == null){
+            logger.log(Level.INFO, "User with name " + name +" wasn't found");
+        }
+        else{
+            logger.log(Level.INFO, "User with name " + name + " was found");
+        }
+        return user;
     }
 
     public void addUser(UsersDTO usersDTO){
