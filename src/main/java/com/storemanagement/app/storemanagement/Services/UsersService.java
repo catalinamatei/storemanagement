@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class UsersService {
 
     @Autowired
     UsersRepository usersRepository;
-
+    Logger logger = Logger.getLogger(ProductsService.class.getName());
     public List<Users> getAllUsers(){
         return usersRepository.findAll();
     }
@@ -25,11 +27,20 @@ public class UsersService {
     }
 
     public void addUser(UsersDTO usersDTO){
-        Users user = Users.builder()
-                .title(usersDTO.getTitle())
-                .name(usersDTO.getName())
-                .build();
-        usersRepository.save(user);
+        try{
+            Users user = Users.builder()
+                    .title(usersDTO.getTitle())
+                    .name(usersDTO.getName())
+                    .build();
+            if(usersDTO.getName() == null || usersDTO.getTitle() == null){
+                logger.log(Level.WARNING, "POST Users: one or more elements was not assigned with a value and will be null");
+            }
+            usersRepository.save(user);
+            logger.log(Level.INFO, "User was added");
+        }
+        catch (Exception e){
+            logger.log(Level.INFO, "User was not added");
+        }
     }
 
     public void deleteUser(String name){
