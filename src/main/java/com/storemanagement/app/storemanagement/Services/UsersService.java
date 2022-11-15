@@ -49,7 +49,15 @@ public class UsersService {
     }
 
     public void deleteUser(String name){
-        usersRepository.delete(usersRepository.findByName(name));
+        Users user = usersRepository.findByName(name);
+
+        if(user == null){
+            logger.log(Level.INFO, "User with name " + name +" wasn't found");
+        }
+        else{
+            usersRepository.delete(user);
+            logger.log(Level.INFO, "User with name " + name + " was deleted");
+        }
     }
 
     public void updateUser(UsersDTO user, String name){
