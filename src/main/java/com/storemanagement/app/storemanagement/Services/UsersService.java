@@ -61,11 +61,25 @@ public class UsersService {
     }
 
     public void updateUser(UsersDTO user, String name){
+        Users updateduser = usersRepository.findByName(name);
 
-        Users updatedUser = usersRepository.findByName(name);
-        updatedUser.setTitle(user.getTitle());
-        updatedUser.setName(user.getName());
-        usersRepository.save(updatedUser);
+        if( user.getTitle() == null){
+            updateduser.setTitle(updateduser.getTitle());
+            logger.log(Level.INFO, "User with name " + name + " has no title included in the body so the value of the field will be the same");
+        }
+        else {
+            updateduser.setTitle(user.getTitle());
+        }
+        if( user.getName() == null){
+            updateduser.setName(updateduser.getName());
+            logger.log(Level.INFO, "User with name " + name + " has no name included in the body so the value of the field will be the same");
+        }
+        else{
+            updateduser.setName(user.getName());
+        }
+
+        usersRepository.save(updateduser);
+        logger.log(Level.INFO, "User with name " + name + " was updated");
 
     }
 
