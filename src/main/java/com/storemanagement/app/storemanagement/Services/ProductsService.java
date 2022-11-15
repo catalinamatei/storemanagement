@@ -70,14 +70,14 @@ public class ProductsService {
 
         if( product.getPrice() == null){
             updatedproduct.setPrice(updatedproduct.getPrice());
-            logger.log(Level.WARNING, "Product with name " + name + " has no price included in the body so value of field will be the same");
+            logger.log(Level.WARNING, "Product with name " + name + " has no price included in the body so the value of the field will be the same");
         }
         else{
             updatedproduct.setPrice(product.getPrice());
         }
         if( product.getCategory() == null){
             updatedproduct.setCategory(updatedproduct.getCategory());
-            logger.log(Level.INFO, "Product with name " + name + " has no category included in the body so value of field will be the same");
+            logger.log(Level.INFO, "Product with name " + name + " has no category included in the body so the value of the field will be the same");
         }
         else {
             updatedproduct.setCategory(product.getCategory());
