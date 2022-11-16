@@ -1,9 +1,7 @@
 package com.storemanagement.app.storemanagement.Controllers;
 
-
-import com.storemanagement.app.storemanagement.APIErrors.NoSuchProductExistsExeption;
 import com.storemanagement.app.storemanagement.APIErrors.NoSuchUsersExistsException;
-import com.storemanagement.app.storemanagement.DTOs.ProductsDTO;
+import com.storemanagement.app.storemanagement.APIErrors.UserAlreadyExistsException;
 import com.storemanagement.app.storemanagement.DTOs.UsersDTO;
 import com.storemanagement.app.storemanagement.Entities.Users;
 import com.storemanagement.app.storemanagement.Services.UsersService;
@@ -38,7 +36,11 @@ public class UsersController {
     public void addUser(@RequestBody UsersDTO userDTO){
         usersService.addUser(userDTO);
     }
-
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<String> handleUserExistsException(UserAlreadyExistsException exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
     @DeleteMapping(path = "/delete/{name}")
     public void deleteUser(@PathVariable String name){
         usersService.deleteUser(name);
