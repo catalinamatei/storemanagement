@@ -1,11 +1,15 @@
 package com.storemanagement.app.storemanagement.Controllers;
 
 
+import com.storemanagement.app.storemanagement.APIErrors.NoSuchProductExistsExeption;
+import com.storemanagement.app.storemanagement.APIErrors.NoSuchUsersExistsException;
 import com.storemanagement.app.storemanagement.DTOs.ProductsDTO;
 import com.storemanagement.app.storemanagement.DTOs.UsersDTO;
 import com.storemanagement.app.storemanagement.Entities.Users;
 import com.storemanagement.app.storemanagement.Services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +29,11 @@ public class UsersController {
     public Users getUser(@PathVariable String name){
         return usersService.getUserByName(name);
     }
-
+    @ExceptionHandler(NoSuchUsersExistsException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleNoSuchUserFoundException(NoSuchUsersExistsException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
     @PostMapping(path = "/add")
     public void addUser(@RequestBody UsersDTO userDTO){
         usersService.addUser(userDTO);

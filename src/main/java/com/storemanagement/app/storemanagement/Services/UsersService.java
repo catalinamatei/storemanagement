@@ -1,6 +1,10 @@
 package com.storemanagement.app.storemanagement.Services;
 
+import com.storemanagement.app.storemanagement.APIErrors.NoSuchProductExistsExeption;
+import com.storemanagement.app.storemanagement.APIErrors.NoSuchUsersExistsException;
+import com.storemanagement.app.storemanagement.APIErrors.ProductAlreadyExistsExeption;
 import com.storemanagement.app.storemanagement.DTOs.UsersDTO;
+import com.storemanagement.app.storemanagement.Entities.Products;
 import com.storemanagement.app.storemanagement.Entities.Users;
 import com.storemanagement.app.storemanagement.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,7 @@ public class UsersService {
         Users user = usersRepository.findByName(name);
         if(user == null){
             logger.log(Level.INFO, "User with name " + name +" wasn't found");
+            throw new NoSuchUsersExistsException("no user with name " + name );
         }
         else{
             logger.log(Level.INFO, "User with name " + name + " was found");
@@ -53,6 +58,7 @@ public class UsersService {
 
         if(user == null){
             logger.log(Level.INFO, "User with name " + name +" wasn't found");
+            throw new NoSuchUsersExistsException("no user with name " + name);
         }
         else{
             usersRepository.delete(user);
