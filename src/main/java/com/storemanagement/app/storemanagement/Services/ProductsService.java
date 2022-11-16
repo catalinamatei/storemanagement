@@ -52,7 +52,7 @@ public class ProductsService {
         Products product = productsRepository.findByName(name);
         if(product == null){
             logger.log(Level.INFO, "Product with name " + name +" wasn't found");
-            throw new NoSuchProductExistsExeption("no product with name " + name);
+            throw new NoSuchProductExistsExeption("No product with name " + name);
         }
         else{
             logger.log(Level.INFO, "Product with name " + name + " was found");
@@ -65,8 +65,8 @@ public class ProductsService {
         Products product = productsRepository.findByName(name);
 
         if(product == null){
-            logger.log(Level.INFO, "Product with name " + name +" wasn't found");
-            throw new NoSuchProductExistsExeption("no product with name " + name);
+            logger.log(Level.INFO, "Couldn't delete product with name " + name +", product wasn't found");
+            throw new NoSuchProductExistsExeption("No product with name " + name);
         }
         else{
             productsRepository.delete(product);
