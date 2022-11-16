@@ -23,7 +23,7 @@ public class ProductsController {
     }
     @ExceptionHandler(ProductAlreadyExistsExeption.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<String> handleNoSuchElementFoundException(ProductAlreadyExistsExeption exception) {
+    public ResponseEntity<String> handleProductExistsException(ProductAlreadyExistsExeption exception) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
     }
     @GetMapping
