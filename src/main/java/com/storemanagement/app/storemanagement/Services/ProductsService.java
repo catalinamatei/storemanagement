@@ -65,6 +65,7 @@ public class ProductsService {
 
         if(product == null){
             logger.log(Level.INFO, "Product with name " + name +" wasn't found");
+            throw new NoSuchProductExistsExeption("no product with name " + name);
         }
         else{
             productsRepository.delete(product);
