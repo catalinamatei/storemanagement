@@ -1,5 +1,6 @@
 package com.storemanagement.app.storemanagement.Services;
 
+import com.storemanagement.app.storemanagement.APIErrors.NoSuchProductExistsExeption;
 import com.storemanagement.app.storemanagement.DTOs.ProductsDTO;
 import com.storemanagement.app.storemanagement.Entities.Products;
 import com.storemanagement.app.storemanagement.Repositories.ProductsRepository;
@@ -44,6 +45,7 @@ public class ProductsService {
         Products product = productsRepository.findByName(name);
         if(product == null){
             logger.log(Level.INFO, "Product with name " + name +" wasn't found");
+            throw new NoSuchProductExistsExeption("no product with name " + name);
         }
         else{
             logger.log(Level.INFO, "Product with name " + name + " was found");
