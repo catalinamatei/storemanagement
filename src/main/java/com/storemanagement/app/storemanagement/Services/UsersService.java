@@ -26,7 +26,7 @@ public class UsersService {
         Users user = usersRepository.findByName(name);
         if(user == null){
             logger.log(Level.INFO, "User with name " + name +" wasn't found");
-            throw new NoSuchUsersExistsException("no user with name " + name );
+            throw new NoSuchUsersExistsException("No user with name " + name );
         }
         else{
             logger.log(Level.INFO, "User with name " + name + " was found");
@@ -37,7 +37,8 @@ public class UsersService {
     public void addUser(UsersDTO usersDTO){
         Users userAlreadyExist = usersRepository.findByName(usersDTO.getName());
         if(userAlreadyExist != null){
-            throw new UserAlreadyExistsException("user already exist, please add another user");
+            logger.log(Level.WARNING, "Couldn't add user with name " + userAlreadyExist.getName() + ", user already exists");
+            throw new UserAlreadyExistsException("User already exists, please add another user");
         }
 
         try{
@@ -60,8 +61,8 @@ public class UsersService {
         Users user = usersRepository.findByName(name);
 
         if(user == null){
-            logger.log(Level.INFO, "User with name " + name +" wasn't found");
-            throw new NoSuchUsersExistsException("no user with name " + name);
+            logger.log(Level.INFO, "Couldn't delete user name " + name +", user wasn't found");
+            throw new NoSuchUsersExistsException("No user with name " + name);
         }
         else{
             usersRepository.delete(user);
