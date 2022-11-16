@@ -1,6 +1,7 @@
 package com.storemanagement.app.storemanagement.Services;
 
 import com.storemanagement.app.storemanagement.APIErrors.NoSuchProductExistsExeption;
+import com.storemanagement.app.storemanagement.APIErrors.ProductAlreadyExistsExeption;
 import com.storemanagement.app.storemanagement.DTOs.ProductsDTO;
 import com.storemanagement.app.storemanagement.Entities.Products;
 import com.storemanagement.app.storemanagement.Repositories.ProductsRepository;
@@ -19,6 +20,11 @@ public class ProductsService {
     Logger logger = Logger.getLogger(ProductsService.class.getName());
 
     public void addProduct(ProductsDTO productDto){
+        Products productAlreadyExist = productsRepository.findByName(productDto.getName());
+        if(productAlreadyExist != null){
+            throw new ProductAlreadyExistsExeption("product already exist, please add another product");
+        }
+
         try {
             Products product = Products.builder()
                     .name(productDto.getName())
