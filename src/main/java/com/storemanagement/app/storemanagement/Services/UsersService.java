@@ -50,10 +50,10 @@ public class UsersService {
                 logger.log(Level.WARNING, "POST Users: one or more elements was not assigned with a value and will be null");
             }
             usersRepository.save(user);
-            logger.log(Level.INFO, "User was added");
+            logger.log(Level.INFO, "User with name "  + usersDTO.getName() + " was added");
         }
         catch (Exception e){
-            logger.log(Level.INFO, "User was not added");
+            logger.log(Level.INFO, "User with name " + usersDTO.getName() + " was not added");
         }
     }
 
@@ -61,7 +61,7 @@ public class UsersService {
         Users user = usersRepository.findByName(name);
 
         if(user == null){
-            logger.log(Level.INFO, "Couldn't delete user name " + name +", user wasn't found");
+            logger.log(Level.INFO, "Couldn't delete user with name " + name +", user wasn't found");
             throw new NoSuchUsersExistsException("No user with name " + name);
         }
         else{

@@ -22,7 +22,7 @@ public class ProductsService {
     public void addProduct(ProductsDTO productDto){
         Products productAlreadyExist = productsRepository.findByName(productDto.getName());
         if(productAlreadyExist != null){
-            logger.log(Level.WARNING, "Couldn't add product, product already exists");
+            logger.log(Level.WARNING, "Couldn't add product with name " + productAlreadyExist.getName() +", product already exists");
             throw new ProductAlreadyExistsExeption("Product already exists, please add another product");
         }
 
