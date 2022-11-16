@@ -1,10 +1,8 @@
 package com.storemanagement.app.storemanagement.Services;
 
-import com.storemanagement.app.storemanagement.APIErrors.NoSuchProductExistsExeption;
 import com.storemanagement.app.storemanagement.APIErrors.NoSuchUsersExistsException;
-import com.storemanagement.app.storemanagement.APIErrors.ProductAlreadyExistsExeption;
+import com.storemanagement.app.storemanagement.APIErrors.UserAlreadyExistsException;
 import com.storemanagement.app.storemanagement.DTOs.UsersDTO;
-import com.storemanagement.app.storemanagement.Entities.Products;
 import com.storemanagement.app.storemanagement.Entities.Users;
 import com.storemanagement.app.storemanagement.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,11 @@ public class UsersService {
     }
 
     public void addUser(UsersDTO usersDTO){
+        Users userAlreadyExist = usersRepository.findByName(usersDTO.getName());
+        if(userAlreadyExist != null){
+            throw new UserAlreadyExistsException("user already exist, please add another user");
+        }
+
         try{
             Users user = Users.builder()
                     .title(usersDTO.getTitle())
