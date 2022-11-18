@@ -23,9 +23,14 @@ public class UsersController {
         return usersService.getAllUsers();
     }
 
-    @GetMapping(path = "{name}")
+    @GetMapping(path = "/name/{name}")
     public Users getUser(@PathVariable String name){
         return usersService.getUserByName(name);
+    }
+
+    @GetMapping(path = "/email/{email}")
+    public Users getUserByEmail(@PathVariable String email){
+        return usersService.getUserByEmail(email);
     }
     @ExceptionHandler(NoSuchUsersExistsException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

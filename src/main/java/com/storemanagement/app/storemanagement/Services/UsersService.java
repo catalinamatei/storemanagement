@@ -34,6 +34,18 @@ public class UsersService {
         return user;
     }
 
+    public Users getUserByEmail(String email){
+        Users user = usersRepository.findByEmail(email);
+        if(user == null){
+            logger.log(Level.INFO, "User with email " + email +" wasn't found");
+            throw new NoSuchUsersExistsException("No user with email " + email );
+        }
+        else{
+            logger.log(Level.INFO, "User with email " + email + " was found");
+        }
+        return user;
+    }
+
     public void addUser(UsersDTO usersDTO){
         Users userAlreadyExist = usersRepository.findByName(usersDTO.getName());
         if(userAlreadyExist != null){
