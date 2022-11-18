@@ -45,6 +45,8 @@ public class UsersService {
             Users user = Users.builder()
                     .title(usersDTO.getTitle())
                     .name(usersDTO.getName())
+                    .password(usersDTO.getPassword())
+                    .email(usersDTO.getEmail())
                     .build();
             if(usersDTO.getName() == null || usersDTO.getTitle() == null){
                 logger.log(Level.WARNING, "POST Users: one or more elements was not assigned with a value and will be null");
@@ -86,6 +88,21 @@ public class UsersService {
         }
         else{
             updateduser.setName(user.getName());
+        }
+        if( user.getName() == null){
+            updateduser.setPassword(updateduser.getPassword());
+            logger.log(Level.INFO, "User with name " + name + " has no password included in the body so the value of the field will be the same");
+        }
+        else{
+            updateduser.setPassword(user.getPassword());
+        }
+
+        if( user.getName() == null){
+            updateduser.setEmail(updateduser.getEmail());
+            logger.log(Level.INFO, "User with name " + name + " has no email included in the body so the value of the field will be the same");
+        }
+        else{
+            updateduser.setEmail(user.getEmail());
         }
 
         usersRepository.save(updateduser);

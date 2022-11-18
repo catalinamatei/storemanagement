@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
 import javax.persistence.*;
 
 @Data
@@ -25,16 +24,14 @@ public class Users {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "name")
-    private String name;
-
     @Column(name = "username")
-    private String username;
+    private String name;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
+
 
 }
