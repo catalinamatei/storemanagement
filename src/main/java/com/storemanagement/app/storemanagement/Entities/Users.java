@@ -12,7 +12,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"username"}),
+        @UniqueConstraint(columnNames = {"email"})
+})
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +27,14 @@ public class Users {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
 
 }
